@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ChromeManager {
 
-    public WebDriver getDriver()
+    public static WebDriver getDriver()
     {
         return new ChromeDriver();
     }
