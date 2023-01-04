@@ -1,6 +1,6 @@
-package com.quality.charity.ui.webdriver.factory.shadow;
+package com.quality.charity.ui.shadow;
 
-import com.quality.charity.ui.webdriver.factory.drivers.ApplicationSetup;
+import com.quality.charity.factory.drivers.ApplicationSetup;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ShadowRoots implements ShadowService{
+public class ShadowRoots implements ShadowService {
 
     @Autowired
     ApplicationSetup applicationSetup;

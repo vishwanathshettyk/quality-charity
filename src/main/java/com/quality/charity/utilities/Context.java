@@ -1,4 +1,4 @@
-package com.quality.charity.ui.utilities;
+package com.quality.charity.utilities;
 
 import lombok.Getter;
 import lombok.Setter;

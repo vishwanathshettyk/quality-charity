@@ -1,6 +1,6 @@
 package com.quality.charity.ui.pages;
 
-import com.quality.charity.ui.webdriver.factory.drivers.ApplicationSetup;
+import com.quality.charity.factory.drivers.ApplicationSetup;
 import org.openqa.selenium.By;
 import org.springframework.beans.factory.annotation.Autowired;
 

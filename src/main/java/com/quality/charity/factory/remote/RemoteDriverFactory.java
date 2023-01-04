@@ -1,7 +1,7 @@
-package webdriver.factory.remote;
+package com.quality.charity.factory.remote;
 
-import webdriver.factory.constants.BrowserType;
-import webdriver.factory.constants.RunType;
+import com.quality.charity.factory.constants.RunType;
+import com.quality.charity.factory.constants.BrowserType;
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;

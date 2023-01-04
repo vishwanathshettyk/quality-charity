@@ -1,4 +1,4 @@
-package com.quality.charity.ui.utilities;
+package com.quality.charity.utilities;
 
 import io.cucumber.datatable.dependency.com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,8 +1,8 @@
 package com.quality.charity.ui.steps;
 
-import com.quality.charity.ui.webdriver.factory.drivers.ApplicationSetup;
-import com.quality.charity.ui.webdriver.factory.constants.RunType;
-import com.quality.charity.ui.webdriver.factory.configs.SpringConfiguration;
+import com.quality.charity.factory.drivers.ApplicationSetup;
+import com.quality.charity.factory.constants.RunType;
+import com.quality.charity.factory.configs.SpringConfiguration;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;

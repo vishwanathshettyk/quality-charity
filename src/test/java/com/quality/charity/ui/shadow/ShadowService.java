@@ -1,4 +1,4 @@
-package com.quality.charity.ui.webdriver.factory.shadow;
+package com.quality.charity.ui.shadow;
 
 import org.openqa.selenium.WebElement;
 
