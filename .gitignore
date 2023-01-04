@@ -1,0 +1,33 @@
+# Eclipse exclusions
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
+.classpath
+.project
+
+# Maven exclusions
+target/
+
+# Sonarlint excusions
+*.sonarlin*
+
+# Git exclusion
+*.orig
+
+#Idea exclusion
+.idea
+*.iml
+
+# Git exclusion
+logging.out.dir_IS_UNDEFINED/
+
+#project exclusion
+output/
