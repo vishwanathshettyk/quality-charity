@@ -1,5 +1,4 @@
-# AmazonAssingment - UI Automation with Selenium - Java Cucumber BDD framework
-
+# QUALITY-CHARITY FRAMEWORK for WEB and MOBILE automation
 
 
 ## Usage (WIP)
@@ -12,6 +11,10 @@ Some arguments are optional as `plugin` and `tags`:
 
 ```
 mvn clean test -Dcucumber.options="--tags @tagName"
+mvn clean test -Dcucumber.options="--tags @tagName" -Drun_mode=local
+mvn clean test -Dcucumber.options="--tags @tagName" -Drun_mode=remote -Dtarget_browser=Appium
+mvn clean test -Dcucumber.options="--tags @tagName" -Dtarget_browser=firefox
+
 mvn clean test -Dcucumber.options="--plugin rerun:target/rerun.txt"
 
 ```
@@ -40,17 +43,19 @@ https://www.baeldung.com/cucumber-spring-integration
 ## Project structure (WIP)
 
 ```
-+ Amazon
++ Quality-Charity
 | -- src
-|    + -- test/java/com/amzon/
+|    + -- main/java/com/quality/charity/
+|    |    |    | -- ...
+|    |    + -- factory
+|    |    |    | -- ...
+|    |    + -- utilties
+|    + -- test/java/com/quality/charity/ui
 |    |    + -- pages
 |    |    |    | -- ...
 |    |    + -- steps/
 |    |    |    | -- ...
-|    |    + -- springconfig/
-|    |    |    | -- ...
-|    |    + -- utils/
-|    |    |    | -- ...
+|    |    + -- runner/
 |    | -- test/resource
 |    |    + -- config.json
 |    |    + -- *.feature
@@ -149,8 +154,8 @@ only contrain is that class package is a subpackage of `com.ing.cucumber` but it
 suggested to use something like `com.ing.cucumber.setpdefs.rest.superhero`.
 
 ```java
-package com.amazon.steps;
-import com.amazon.pages.HomePage;
+package com.quality.charity.ui.steps;
+import com.quality.charity.ui.pages.HomePage;
 
 public class HomeSteps implements En {
 
@@ -166,7 +171,7 @@ public class HomeSteps implements En {
 Every Step classes will have its own page class which interacts with Browser using WebDriver.
 
 ```java
-package com.amazon.pages;
+package ccom.quality.charity.ui.pages;
 
 public class HomeSteps  {
 	
