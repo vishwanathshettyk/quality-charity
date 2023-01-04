@@ -1,4 +1,4 @@
-package com.quality.charity.ui.webdriver.factory.constants;
+package webdriver.factory.constants;
 
 public enum RunType {
     TARGET_BROWSER,

@@ -1,4 +1,4 @@
-package com.quality.charity.ui.webdriver.factory.drivers;
+package webdriver.factory.drivers;
 
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;

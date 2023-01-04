@@ -1,7 +1,7 @@
-package com.quality.charity.ui.webdriver.factory.local;
+package webdriver.factory.local;
 
-import com.quality.charity.ui.webdriver.factory.constants.BrowserType;
-import com.quality.charity.ui.webdriver.factory.constants.RunType;
+import webdriver.factory.constants.BrowserType;
+import webdriver.factory.constants.RunType;
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;

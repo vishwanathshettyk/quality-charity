@@ -1,9 +1,9 @@
-package com.quality.charity.ui.webdriver.factory.drivers;
+package webdriver.factory.drivers;
 
-import com.quality.charity.ui.webdriver.factory.constants.RunModeType;
-import com.quality.charity.ui.webdriver.factory.constants.RunType;
-import com.quality.charity.ui.webdriver.factory.local.LocalDriverFactory;
-import com.quality.charity.ui.webdriver.factory.remote.RemoteDriverFactory;
+import webdriver.factory.constants.RunModeType;
+import webdriver.factory.constants.RunType;
+import webdriver.factory.local.LocalDriverFactory;
+import webdriver.factory.remote.RemoteDriverFactory;
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
