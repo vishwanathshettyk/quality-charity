@@ -22,8 +22,8 @@ mvn clean test -Dcucumber.options="--plugin rerun:target/rerun.txt"
 ### How to run on WEB and MOBILE
 
 - for MOBILE , run_platform=MOBILE run_mode=remote, target_browser=appium or lambda
-- for LOCAL WEB,run_platform=WEB run_mode=local, target_browser=chrome or firefox
-- for REMOTE WEB,run_platform=WEB run_mode=remote, target_browser=chrome or firefox
+- for LOCAL WEB,run_platform=WEB run_mode=local, target_browser=chrome or firefox or edge
+- for REMOTE WEB,run_platform=WEB run_mode=remote, target_browser=chrome or firefox or edge
 
 ## Dependencies
 
