@@ -1,7 +1,4 @@
-Feature: test
-
-  Background: Open amazon website in Mobile browser
-    Given open amazon website in mobile browser
+Feature: test2
 
     @android
   Scenario: Search product in Aam

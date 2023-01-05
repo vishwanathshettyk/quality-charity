@@ -8,6 +8,9 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import java.net.MalformedURLException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Supplier;
 
 @Component
 public class RemoteDriverFactory {
@@ -20,6 +23,7 @@ public class RemoteDriverFactory {
 
     @Autowired
     LambdaTestManager lambdaTestManager;
+
 
     public WebDriver getDriver() throws MalformedURLException {
 

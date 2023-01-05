@@ -1,5 +1,6 @@
 package com.quality.charity.ui.steps;
 
+import com.quality.charity.factory.constants.BrowserType;
 import com.quality.charity.factory.drivers.ApplicationSetup;
 import com.quality.charity.factory.constants.RunType;
 import com.quality.charity.factory.configs.SpringConfiguration;
@@ -42,11 +43,11 @@ public class Hooks {
 
     @After
     public void tearDown(Scenario scenario) throws MalformedURLException {
-        if(environment.getProperty(RunType.RUN_MODE.toString().toLowerCase()).contains("remote"))
+        applicationSetup.getDriver().quit();
+        if(environment.getProperty(RunType.TARGET_BROWSER.toString().toLowerCase()).equalsIgnoreCase(BrowserType.LAMBDA.toString()))
         {
             this.sendStatusToLambda(scenario);
         }
-        applicationSetup.getDriver().quit();
     }
 
     private void sendStatusToLambda(Scenario scenario)

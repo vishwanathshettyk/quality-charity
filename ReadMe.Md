@@ -12,12 +12,18 @@ Some arguments are optional as `plugin` and `tags`:
 ```
 mvn clean test -Dcucumber.options="--tags @tagName"
 mvn clean test -Dcucumber.options="--tags @tagName" -Drun_mode=local
-mvn clean test -Dcucumber.options="--tags @tagName" -Drun_mode=remote -Dtarget_browser=Appium
+mvn clean test -Dcucumber.options="--tags @tagName" -Drun_mode=remote -Dtarget_browser=Appium -Drun_platformm=MOBILE
 mvn clean test -Dcucumber.options="--tags @tagName" -Dtarget_browser=firefox
 
 mvn clean test -Dcucumber.options="--plugin rerun:target/rerun.txt"
 
 ```
+
+### How to run on WEB and MOBILE
+
+for MOBILE , run_platform=MOBILE run_mode=remote, target_browser=appium or lambda
+for LOCAL WEB,run_platform=WEB run_mode=local, target_browser=chrome or firefox
+for REMOTE WEB,run_platform=WEB run_mode=remote, target_browser=chrome or firefox
 
 ## Dependencies
 

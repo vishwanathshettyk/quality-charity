@@ -1,9 +1,6 @@
-Feature: test
+Feature: test1
 
-  Background: Open amazon website in Mobile browser
-    Given open amazon website in mobile browser
-
-    @android
-  Scenario: Search product in Aam
+  @android
+  Scenario: Search product in Amazon
       When enter a text "mobile" in search box
       Then mobile phones are displayed
