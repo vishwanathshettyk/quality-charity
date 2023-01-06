@@ -24,11 +24,17 @@ public class RemoteDriverFactory {
     @Autowired
     LambdaTestManager lambdaTestManager;
 
+    @Autowired
+    DockerManager dockerManager;
 
     public WebDriver getDriver() throws MalformedURLException {
 
         String browserType = environment.getProperty(RunType.TARGET_BROWSER.toString().toLowerCase());
 
+        if(browserType.equalsIgnoreCase(BrowserType.DOCKER.toString()))
+        {
+            return dockerManager.getDriver();
+        }
         return  browserType.equalsIgnoreCase(BrowserType.LAMBDA.toString())
                 ? lambdaTestManager.getDriver()
                 : appiumManager.getDriver();

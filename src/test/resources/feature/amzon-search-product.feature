@@ -1,6 +1,6 @@
-Feature: test1
+Feature: Search Products
 
-  @android
-  Scenario: Search product in Amazon
+    @android @web
+  Scenario: Search product in Aam
       When enter a text "mobile" in search box
       Then mobile phones are displayed

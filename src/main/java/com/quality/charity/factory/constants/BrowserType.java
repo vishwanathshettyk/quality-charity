@@ -5,6 +5,8 @@ public enum BrowserType {
     CHROME,
     FIREFOX,
     EDGE,
+    DOCKER,
     APPIUM,
     LAMBDA;
+
 }
