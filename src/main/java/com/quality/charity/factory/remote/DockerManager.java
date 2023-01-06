@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
@@ -17,12 +18,15 @@ import java.net.URL;
 @Component
 public class DockerManager {
 
-    @Autowired
-    Environment environment;
+    @Value("${selenium.grid.hub.url}")
+    private String seleniumGridUrl;
+
+    @Value("{selenium.grid.browser}")
+    private String seleniumGridBrowser;
 
     public WebDriver getDriver() throws MalformedURLException {
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("browserName", "firefox");
-        return new RemoteWebDriver(new URL("http://127.0.0.1:4444/wd/hub"), capabilities);
+        capabilities.setCapability("browserName", seleniumGridBrowser);
+        return new RemoteWebDriver(new URL(seleniumGridUrl), capabilities);
     }
 }
