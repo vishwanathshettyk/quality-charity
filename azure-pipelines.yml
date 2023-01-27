@@ -1,0 +1,164 @@
+parameters:
+  - name: pipelineId
+    type: number
+    default:
+  - name: component
+    type: string
+    default: ''
+  - name: tags
+    default: '~@ignore'
+
+trigger:
+  # Pipeline will be automatically triggered from change on the branch included here
+  branches:
+    include:
+      - none
+stages:
+  - stage: DownloadArtifacts
+    jobs:
+      - job: TestExecution
+        pool:
+          name: 'CDaaSLinux'
+        steps:
+          - task: DownloadPipelineArtifact@2
+            displayName: 'download_artifacts_pipline'
+            inputs:
+              source: 'specific'
+              project: 'IngOne'
+              runId: ${{ parameters.pipelineId }}
+              pipeline:  ${{ parameters.pipelineId }}
+              path: '$(System.DefaultWorkingDirectory)'
+              artifact: 'ThorBinaries'
+
+          - task: CopyFiles@2
+            displayName: 'Copy Thor Resources'
+            inputs:
+              SourceFolder: '$(System.DefaultWorkingDirectory)/
+              TargetFolder: '$(System.ArtifactsDirectory)'
+
+          - task: PublishBuildArtifacts@1
+            inputs:
+              PathtoPublish: '$(System.ArtifactsDirectory)'
+              ArtifactName: 'drop'
+              publishLocation: 'Container'
+
+  - stage: Runtestr
+    dependsOn: DownloadArtifacts
+    jobs:
+      - job: Runtest
+        pool:
+          name: 'CDaaSLinux'
+        steps:
+          - task: DownloadBuildArtifacts@0
+            displayName: 'download'
+            inputs:
+              buildType: 'current'
+              downloadType: 'specific'
+              downloadPath: '$(System.ArtifactsDirectory)'
+
+          - task: Bash@3
+            displayName: 'Run Integration Tests'
+            inputs:
+              targetType: 'inline'
+              script: |
+                # Write your commands here
+                sudo chmod -R 777 .
+                cd $(System.ArtifactsDirectory)/drop/
+                ls -lrt
+
+          - task: PublishBuildArtifacts@1
+            inputs:
+              PathtoPublish: '$(System.ArtifactsDirectory)/drop/output'
+              ArtifactName: 'dcr_results'
+              publishLocation: 'Container'
+
+  - stage: CucumberReport
+    jobs:
+      - job: GenerateReport
+        pool:
+          vmImage: 'ubuntu-20.04'
+
+        steps:
+          - task: DownloadBuildArtifacts@0
+            continueOnError: true
+            displayName: 'download'
+            inputs:
+              buildType: 'current'
+              downloadType: 'specific'
+              downloadPath: '$(System.ArtifactsDirectory)'
+
+          - task: PublishCucumberReport@1
+            continueOnError: true
+            displayName: 'report'
+            inputs:
+              jsonDir: '$(System.ArtifactsDirectory)/'
+              outputPath: '$(System.ArtifactsDirectory)/'
+              theme: 'bootstrap'
+              reportSuiteAsScenarios: true
+              name: 'test-report'
+
+          - task: PublishBuildArtifacts@1
+            continueOnError: true
+            inputs:
+              PathtoPublish: '$(System.ArtifactsDirectory)/wpr_results'
+              ArtifactName: 'wpr_html'
+              publishLocation: 'Container'
+
+  - stage: SendEmail
+    dependsOn: CucumberReport
+    jobs:
+      - job: SendEmailReport
+        pool:
+          name: 'CDaaSLinux'
+        steps:
+          - task: DownloadBuildArtifacts@0
+            displayName: 'download html reports'
+            inputs:
+              buildType: 'current'
+              downloadType: 'specific'
+              downloadPath: '$(System.ArtifactsDirectory)'
+
+          - task: PythonScript@0
+            displayName: "[NOTIFY] Send email"
+            inputs:
+              scriptSource: 'inline'
+              script: |
+                from email.mime.text import MIMEText
+                from email.mime.base import MIMEBase
+                from email.mime.multipart import MIMEMultipart
+                from email import encoders
+                import smtplib, os, glob
+                import sys, json
+                import datetime
+                
+                _DEFAULT_SERVER = 'smtp-ip.wps.ing.net'
+                _DEFAULT_PORT = 25
+                _DEFAULT_SENDER = 'ML-Integration-Testing-PING@ing.com'
+                _DEFAULT_RECEIVER = 'vishwanatha.katgeri.shetty.ext@ing.com'
+                dateTime = datetime.datetime.now()
+                mailRecipients = ['ml-it-techpirates@ing.com','ML-Integration-Testing-PING']
+                my_email = MIMEMultipart()
+                my_email["From"] = _DEFAULT_SENDER
+                my_email["To"] = ', '.join(mailRecipients)
+                my_email["Subject"] = 'Automated Test Report - ${{ parameters.component }} -' + str(dateTime)
+    
+                content = "<html><head></head><body><p>Hello!<br>Attached the mail with the summary of Test Report</br><br><b>Regards,Test Automation Team.</b></br></p></body></html>"
+                my_email.attach(MIMEText(content, 'html'))  
+
+                
+                try:
+                  rep = MIMEBase('application', "octet-stream")
+                  rep.set_payload(open("$(System.ArtifactsDirectory)/html/cucumber.html", "rb").read())
+                  encoders.encode_base64(wpr)
+                  wpr.add_header('Content-Disposition', 'attachment; filename="report.html"')
+                  my_email.attach(rep)
+                except Exception as e:
+                  print(e) 
+                
+                #my_email["CC"] = ''
+                
+                smtpObj = smtplib.SMTP(_DEFAULT_SERVER, _DEFAULT_PORT)
+                print("Sending email to all stake-holders")
+                smtpObj.sendmail(_DEFAULT_SENDER, mailRecipients, my_email.as_string())  
+                
+                print("Successfully sent email")

@@ -10,4 +10,4 @@ FROM --platform=linux/amd64 markhobson/maven-chrome:jdk-8
 WORKDIR /Quality-Charity
 COPY src /Quality-Charity/src
 COPY pom.xml /Quality-Charity
-RUN mvn -f /Quality-Charity/pom.xml clean package -Dmaven.test.skip=true
+RUN mvn -f /Quality-Charity/pom.xml clean install -Dmaven.test.skip=true

@@ -1,7 +1,7 @@
 
-a
-1src/test/java/com/ing/thor/ui/utilities/Data.java,9\0\90ac0f72bf07a7ab7cf125e9dba1283c10245d2d
-J
-dependency-reduced-pom.xml,8\a\8a88dfd5af6f2db5a5431581b56e901f5f143d92
-d
-4src/test/java/com/ing/thor/ui/utilities/Context.java,1\c\1cb97985e195f992d81c29a8cc4def2ad39fcd8a
+t
+Dsrc/main/java/com/quality/charity/factory/constants/BrowserType.java,f\7\f7352ee28da36828ebf472034563108e8ba7d46f
+s
+Csrc/main/java/com/quality/charity/factory/local/FireFoxManager.java,b\2\b23808fb70bc3a8d814d3e9e5f5ec31e53d8519f
+K
+docker-compose-v3-swarm.yml,2\c\2cd29b4d2b99fcf8ab10498b4d49870a5d3f662d

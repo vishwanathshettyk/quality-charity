@@ -27,6 +27,7 @@ public class DockerManager {
     public WebDriver getDriver() throws MalformedURLException {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("browserName", seleniumGridBrowser);
-        return new RemoteWebDriver(new URL(seleniumGridUrl), capabilities);
+        return new RemoteWebDriver(new URL("http://127.0.0.1:4444/wd/hub"), capabilities);
+
     }
 }
