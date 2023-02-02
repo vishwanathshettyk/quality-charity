@@ -1,4 +1,4 @@
-package com.quality.charity.ui.steps;
+package com.quality.charity.ui.steps.websteps;
 
 import com.quality.charity.ui.pages.web.ElectronicsWebPage;
 import cucumber.api.java8.En;

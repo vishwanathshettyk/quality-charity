@@ -1,4 +1,4 @@
-package com.quality.charity.ui.steps;
+package com.quality.charity.ui.steps.websteps;
 
 import com.quality.charity.factory.constants.PlatformTypes;
 import com.quality.charity.factory.constants.RunType;

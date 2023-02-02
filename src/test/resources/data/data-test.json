@@ -2,8 +2,7 @@
   "dataList": [
     {
       "id": "CUSTOMER_ONE",
-      "cif": "0001002748",
-      "dob": "01/05/1987"
+      "value": "01/05/1987"
     },{
       "id": "CUSTOMER_TW0",
       "value": "10022424"

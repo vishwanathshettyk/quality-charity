@@ -28,6 +28,9 @@ public class Hooks {
     @Value("${target.url}")
     private String targetUrl;
 
+    @Value("${run_platform}")
+    private String runPlatform;
+
     @Autowired
     public Hooks(ApplicationSetup applicationSetup) {
         this.applicationSetup = applicationSetup;
@@ -36,17 +39,27 @@ public class Hooks {
     @Before
     public void init(Scenario scenario) throws IOException, InterruptedException {
 
+        if(!runPlatform.equalsIgnoreCase("API"))
+        {
             applicationSetup.init(scenario.getName());
             applicationSetup.getDriver().get(targetUrl);
             applicationSetup.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        }else {
+
+            System.out.println("API Testing started");
+        }
     }
 
     @After
     public void tearDown(Scenario scenario) throws MalformedURLException {
-        applicationSetup.getDriver().quit();
-        if(environment.getProperty(RunType.TARGET_BROWSER.toString().toLowerCase()).equalsIgnoreCase(BrowserType.LAMBDA.toString()))
+
+        if(!runPlatform.equalsIgnoreCase("API"))
         {
-            this.sendStatusToLambda(scenario);
+            applicationSetup.getDriver().quit();
+            if(environment.getProperty(RunType.TARGET_BROWSER.toString().toLowerCase()).equalsIgnoreCase(BrowserType.LAMBDA.toString()))
+            {
+                this.sendStatusToLambda(scenario);
+            }
         }
     }
 
