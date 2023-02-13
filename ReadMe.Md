@@ -1,4 +1,4 @@
-# QUALITY-CHARITY FRAMEWORK for WEB and MOBILE automation
+# QUALITY-CHARITY FRAMEWORK for WEB , MOBILE, API and PERFORMANCE Automation 
 
 
 ## Usage (WIP)
@@ -25,6 +25,14 @@ mvn clean test -Dcucumber.options="--plugin rerun:target/rerun.txt"
 - for LOCAL WEB,run_platform=WEB run_mode=local, target_browser=chrome or firefox or edge
 - for REMOTE WEB,run_platform=WEB run_mode=remote, target_browser=chrome or firefox or edge
 
+### How to run API Tests
+
+-  mvn clean test -Drun_platform=API
+
+### How to run Performance Tests
+
+- mvn gatling:test
+
 ## Dependencies
 
 - Selenium
@@ -34,6 +42,9 @@ mvn clean test -Dcucumber.options="--plugin rerun:target/rerun.txt"
 - Spring
 - Lombok
 - JUnit
+- Rest-Assured (API Testing)
+- Gatling  (Performance Testing)
+
 
 \* Defined with test scope in the pom file.
 
