@@ -166,7 +166,7 @@
                 <artifactId>gatling-maven-plugin</artifactId>
                 <version>4.2.7</version>
                 <configuration>
-                    <simulationClass>com.quality.charity.perf.simulation.QualityCharitySimulation</simulationClass>
+                    <simulationClass>com.quality.charity.perf.simulation.PersonalLoanSimulation</simulationClass>
                 </configuration>
             </plugin>
     </plugins>

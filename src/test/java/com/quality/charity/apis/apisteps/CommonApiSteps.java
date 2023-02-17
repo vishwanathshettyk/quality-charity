@@ -1,4 +1,4 @@
-package com.quality.charity.ui.steps.apisteps;
+package com.quality.charity.apis.apisteps;
 
 import com.quality.charity.factory.restassuredfactory.RestService;
 import com.quality.charity.ui.testUtills.TestContext;

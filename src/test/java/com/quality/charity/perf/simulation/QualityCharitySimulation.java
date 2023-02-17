@@ -1,6 +1,6 @@
 package com.quality.charity.perf.simulation;
 
-import io.gatling.javaapi.core.ChainBuilder;
+import io.gatling.javaapi.core.*;
 import io.gatling.javaapi.core.FeederBuilder;
 import io.gatling.javaapi.core.ScenarioBuilder;
 import io.gatling.javaapi.core.Simulation;
