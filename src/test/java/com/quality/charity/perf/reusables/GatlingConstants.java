@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 public class GatlingConstants {
 
-    public static int RAMP_USER = 10;
-    public static long TEST_DURATION = 10;
+    public static int RAMP_USER = 100;
+    public static long TEST_DURATION = 60;
 
 }

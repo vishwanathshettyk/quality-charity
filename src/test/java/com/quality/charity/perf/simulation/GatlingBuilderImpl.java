@@ -1,5 +1,6 @@
-package com.quality.charity.perf.reusables;
+package com.quality.charity.perf.simulation;
 
+import com.quality.charity.perf.reusables.GatlingService;
 import io.gatling.javaapi.core.ChainBuilder;
 import io.gatling.javaapi.core.ScenarioBuilder;
 import io.gatling.javaapi.core.Simulation;
@@ -10,7 +11,7 @@ import static io.gatling.javaapi.core.CoreDsl.*;
 import static io.gatling.javaapi.http.HttpDsl.http;
 
 @Component
-public class GatlingBuilder extends Simulation {
+public class GatlingBuilderImpl extends Simulation implements GatlingService {
 
     ChainBuilder country;
     HttpProtocolBuilder httpProtocol;
