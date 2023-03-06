@@ -6,5 +6,6 @@ import io.gatling.javaapi.http.HttpProtocolBuilder;
 public interface GatlingService {
 
     ScenarioBuilder scenarioBuilder();
+
     HttpProtocolBuilder httpProtocolBuilder();
 }

@@ -1,0 +1,7 @@
+<suite name="Suite1" verbose="1" >
+    <test name="Regression1">
+        <classes>
+            <class name="com.quality.charity.perf.simulation.GetUserListPerfTest"/>
+        </classes>
+    </test>
+</suite>
