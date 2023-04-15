@@ -1,110 +1,89 @@
-# TIGER Project API Automation 
+# QUALITY-CHARITY FRAMEWORK for WEB and MOBILE automation
 
 
 ## Usage (WIP)
 
-### How to run API Tests
+```
+mvn clean test 
+```
 
--  Open any Test Runner class, replace with appropriate tags and run.
+Some arguments are optional as `plugin` and `tags`:
+
+```
+mvn clean test -Dcucumber.options="--tags @tagName"
+mvn clean test -Dcucumber.options="--tags @tagName" -Drun_mode=local
+mvn clean test -Dcucumber.options="--tags @tagName" -Drun_mode=remote -Dtarget_browser=Appium -Drun_platformm=MOBILE
+mvn clean test -Dcucumber.options="--tags @tagName" -Dtarget_browser=firefox
+
+mvn clean test -Dcucumber.options="--plugin rerun:target/rerun.txt"
+
+```
+
+### How to run on WEB and MOBILE
+
+- for MOBILE , run_platform=MOBILE run_mode=remote, target_browser=appium or lambda
+- for LOCAL WEB,run_platform=WEB run_mode=local, target_browser=chrome or firefox or edge
+- for REMOTE WEB,run_platform=WEB run_mode=remote, target_browser=chrome or firefox or edge
 
 ## Dependencies
 
-- Rest-Assured (API Testing)
+- Selenium
 - Cucumber
-- Cucumber-Pico-Container
+- Cucumber-Spring
 - SLF4j
+- Spring
 - Lombok
 - JUnit
-- TestNG
 
 \* Defined with test scope in the pom file.
 
 
-### Why Cucumber Pico-container?
+### Why Cucumber Spring?
 
-Cucumber-pico-container is the best choice for dependency injection because it blends well with the Cucumber implementation.
+Cucumber-Spring is the best choice for dependency
+injection because it blends well with the Cucumber implementation and can also use the profile
+to differentiate the test data based on the test environment.
+
 For more details about dependencies injector
-http://www.thinkcode.se/blog/2017/04/01/sharing-state-between-steps-in-cucumberjvm-using-picocontainer
-
-
-## Overview
-
-Tiger API test framework is a BDD framework which has the following layers
-
-1. Feature: Its written using gherkin languages , Plain english statements describes the test cases
-2. Step definition: These are pure Java classes which implements steps written in Feature file.
-3. Data POJO: These java classes which is used to deserialize the YAML file (Request Data) to Java Objects
-4. YAML : These are test data files (request) which are created to achieve the different scenarios.
-5. Utilities: Some helper Java classes and Enums to make framework more reusable.
-
+https://www.baeldung.com/cucumber-spring-integration
 ## Project structure (WIP)
 
 ```
-+ ing-auto-test
++ Quality-Charity
 | -- src
-|    + -- main/java/au/com/ing/lendfast/servicabiltiy
+|    + -- main/java/com/quality/charity/
 |    |    |    | -- ...
-|    |    + -- lendfastAdpater
-|    |    |    + -- stepDefinitation
-|    |    |    + -- utils
-|    |    |    + -- contstants
-|    |    + -- serviceabiltiyCalculator
-|    |    |    + -- stepDefinitation
-|    |    |    + -- utils
-|    |    |    + -- contstants
-|    + -- main/resourcees/features/
-|    |    |    + -- lendfastAdapter.feature
-|    |    |    + -- serviceabilityhomeloan.feature
-|    + -- test/java/au/ing/
-|    |    + -- servicability
-|    |    |    + -- commonData
-|    |    |    |    + -- serviceabilityBaseRequest.yml
-|    |    |    + -- resiMortage
-|    |    |    |    + -- serviceabilityRM.yml
-|    |    |    |    + -- liability.yml
-|    |    |    |    + -- personApplicant.yml
-|    |    |    + -- comercialLoan
-|    |    |    |    + -- serviceabilityCL.yml
-
-
+|    |    + -- factory
+|    |    |    | -- ...
+|    |    + -- utilties
+|    + -- test/java/com/quality/charity/ui
+|    |    + -- pages
+|    |    |    | -- ...
+|    |    + -- steps/
+|    |    |    | -- ...
+|    |    + -- runner/
+|    | -- test/resource
+|    |    + -- config.json
+|    |    + -- *.feature
 ```
+- `.../pages` package contains all classes which has page objects.<br />
+- `.../steps` package contains the application's entry point.<br />
+- `.../springconfig` package contains the classes used for injecting objects into Cucumber steps implementation.<br />
+- `.../utils` package contains all utilities classes (e.g. Query, SQLBuilder, ObjectPool, Table, etc...).<br />
+- `.../features` package contains all feature files.<br />
+
 
 ## Guideline
 
 The following guideline is composed by several items from _Effective Java_ book.
 This framework has been implemented trying to be compliance with every points:
 
-
-#### Cucumber Feature:
-- Use Cucumber Scenario Outline whenever is required.
-- Add @ServiceabilityCalculator tags at feature level for all features
-- Use proper tags  and MTM ID for each scenario.
-- Feature file name should be all lower case.
-- Steps should be grammatically correct and readable.
-```gherkin
-    Given serviceability request is loaded
-    |serviceabilityRequestDetails|testDataPath|
-    |SERVICEABILITYREQUEST       |data/serviceabilityRequest.yml|  
-    When request submitted to resi mortgage api
-    Then response from api is 200
-    And response has assessmentRate and monthlyRepayment amount
-```
-#### Step Definition Class:
-
-- Prefer dependency injection to hard-wiring resources.
-- Keep Step definition class final
-- Use log.Info or log.Debug whenever it is required.
-- Add try and catch block for Arithmetic operations
-- Declare global variable if that can be used in all member functions of class
-
-#### General JAVA Standards:
-- Adhere to SOLID principles
-- Check possible NPE and Handle it properly.
+- Prefer dependency injection to hardwiring resources.
 - Minimize mutability.
 - Favor static member classes over nonstatic.
 - Don't use raw types.
 - Eliminate unchecked warnings.
-- Use enums instead of int constants.
+- Use enums instead of int costants.
 - Prefer lambdas to anonymous classes.
 - Prefer for-each loops to traditional for loops.
 - Use checked exceptions for recoverable conditions and runtime exceptions.
@@ -113,7 +92,8 @@ This framework has been implemented trying to be compliance with every points:
 #### Step 1 - Feature file creation
 
 The first step is creating the feature file. It is stored for convenience in
-`src/main/resources/features`.The feature file content could be like this:
+`src/test/resources/features` but it is hosted in `tests` directory
+of the component repository as well. The feature file content could be like this:
 
 ```gherkin
 Feature: test gadget endpoint of batman component
@@ -133,17 +113,27 @@ Feature: test gadget endpoint of batman component
         | 2        | batmobile | 1         |
 ```
 
-The `Feature` keyword marks the test case title. 
+The `Feature` keyword marks the test case title. The `Background` specifies
+a list of step that will we executed before every scenario. `Thor` framework
+provide a ready-implementation for background steps:
 
-- `Background` specifies a list of step that will we executed before every scenario.
-- `Given` step loads the data or creates the json data required for sending the request to relevant APIs
-- `When` steps is used in our steps to submit the request to target API.
-- `Then` steps is used for assertion
+- `Given the "<var>" compontent` this step sets the component with  `<var>`
+  name as current target of the test in order to retrieve component informations in
+  other steps.
+- `When the component is up and running` check up if the component set as
+  target of the test is up and running.
 
 Our test case is described and define using the `Scenario Outline` keyword (for more
 details about the difference between `Scenario` and `Scenario Outline` read the
-Cucumber documentation).`Scenario Outline` should be used only when one test cases can be tested with different test data example
-if you want to test the behavior of the target application when different data are sent for one or many json nodes (attributes).
+Cucumber documentation). The sentence after `Scenario Outline` is the test case
+description. For testing the `gadget` endpoint we have defined two steps. In the first one,
+we are going to set a gadget request providing its name and its quantity. In the second step
+we are going to check the result: the number of gadget expected (e.g we suppose batman owns
+3 batrang but when he needs two batmobile only one is returned). In this two steps we define
+three variable, `quantity`, `gadget` and `result` that will be evaluated during the
+execution phase. Finally we have to define the dataset used for evaluating the variables.
+For doing this we use the keyword `Examples` followed by a little rough table where the
+first row is the header.
 
 #### Step 2 - Steps implementation
 
@@ -166,26 +156,35 @@ Then("return {string} gadget\\(s)", (String string) -> {
 ```
 
 Now you have to create a Java class where put the implementation suggested by Cucumber. The
-only contrain is that class package is a subpackage of `au.ing.lendfast`
+only contrain is that class package is a subpackage of `com.ing.cucumber` but it's
+suggested to use something like `com.ing.cucumber.setpdefs.rest.superhero`.
 
 ```java
-package au.ing.lendfast.lendfastAdapter.stepDefinitation;
+package com.quality.charity.ui.steps;
+import com.quality.charity.ui.pages.HomePage;
 
-public class LendFastAdapterStepDefinition  {
-    
-    final ServiceAbility serviceAbility;
-    
-    //Dependency Injection using Cucumber Pico Container
-    public LendFastAdapterStepDefinition(ServiceAbility serviceAbility)
-    {
-        this.serviceAbility = serviceAbility;
-    }
+public class HomeSteps implements En {
+
+    @Autowired
+    HomePage homepage;
     
     // add your test here
 }
 ```
 
-#### Step 3 - Utilities
+#### Step 4 - Page Implementation
 
-We have utilities classes created for both Lendfast Adapter and Serviceability calculator. These classes are used for creating 
-some helper methods which can be called in Step definition class. We can reuse these methods across all step definition classes
+Every Step classes will have its own page class which interacts with Browser using WebDriver.
+
+```java
+package ccom.quality.charity.ui.pages;
+
+public class HomeSteps  {
+	
+    @Autowired
+    ApplicationSetup applicationSetup;
+    
+    // add your test here
+}
+```
+`
