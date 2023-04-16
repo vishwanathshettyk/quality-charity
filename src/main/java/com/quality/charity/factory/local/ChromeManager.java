@@ -13,7 +13,7 @@ public class ChromeManager {
     public static WebDriver getDriver()
     {
         ChromeOptions options= new ChromeOptions();
-        options.addArguments("--no-sandbox", "--headless","--disable-dev-shm-usage");
+        options.addArguments("--no-sandbox","--disable-dev-shm-usage","--remote-allow-origins=*");
         return new ChromeDriver(options);
     }
 

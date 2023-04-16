@@ -24,7 +24,8 @@ public class Hooks {
     Environment environment;
 
     private ApplicationSetup applicationSetup;
-
+    private static final String WEB = "web";
+    private static final String API = "api";
     @Value("${target.url}")
     private String targetUrl;
 
@@ -39,27 +40,40 @@ public class Hooks {
     @Before
     public void init(Scenario scenario) throws IOException, InterruptedException {
 
-        if(!runPlatform.equalsIgnoreCase("API"))
-        {
-            applicationSetup.init(scenario.getName());
-            applicationSetup.getDriver().get(targetUrl);
-            applicationSetup.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        }else {
-
-            System.out.println("API Testing started");
+        if (!runPlatform.equalsIgnoreCase(WEB)) {
+            if(runPlatform.equalsIgnoreCase(API)) {
+                System.out.println("API Testing started");
+            }
+        } else {
+           initiateWebDriver(scenario);
         }
     }
+
+    private void  initiateWebDriver(Scenario scenario) throws MalformedURLException {
+        applicationSetup.init(scenario.getName());
+        applicationSetup.getDriver().get(targetUrl);
+        applicationSetup.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+    }
+
 
     @After
     public void tearDown(Scenario scenario) throws MalformedURLException {
 
-        if(!runPlatform.equalsIgnoreCase("API"))
-        {
-            applicationSetup.getDriver().quit();
-            if(environment.getProperty(RunType.TARGET_BROWSER.toString().toLowerCase()).equalsIgnoreCase(BrowserType.LAMBDA.toString()))
+        try {
+            if(!runPlatform.equalsIgnoreCase("API"))
             {
-                this.sendStatusToLambda(scenario);
+                applicationSetup.getDriver().quit();
+                if(environment.getProperty(RunType.TARGET_BROWSER.toString().toLowerCase()).equalsIgnoreCase(BrowserType.LAMBDA.toString()))
+                {
+                    this.sendStatusToLambda(scenario);
+                }
             }
+        } catch (NullPointerException e) {
+            System.out.println("Driver instance is not available to quit");
+        } catch (Exception e)
+        {
+            System.out.println("Exception occurred while closing driver");
+            throw e;
         }
     }
 

@@ -2,14 +2,13 @@ package com.quality.charity.perf.simulation;
 
 import com.quality.charity.perf.reusables.GatlingConstants;
 import com.quality.charity.perf.reusables.GatlingFactory;
-import com.quality.charity.perf.reusables.GatlingService;
 import io.gatling.javaapi.core.Simulation;
 import org.testng.annotations.Test;
 
 import static io.gatling.javaapi.core.CoreDsl.global;
 import static io.gatling.javaapi.core.CoreDsl.rampUsers;
 
-public class GetUserListPerfTest extends Simulation
+public class GetUserListPerfSimulation extends Simulation
 {
     GatlingFactory gatlingFactory = new GatlingFactory();
 
@@ -28,7 +27,7 @@ public class GetUserListPerfTest extends Simulation
     @Test
     public void runTest()
     {
-        GatlingBuilderImpl gatlingBuilder = (GatlingBuilderImpl) gatlingFactory.getGatling(GetUserListPerfTest.class.getSimpleName());
+        GatlingBuilderImpl gatlingBuilder = (GatlingBuilderImpl) gatlingFactory.getGatling(GetUserListPerfSimulation.class.getSimpleName());
 
         setUp(
                 gatlingBuilder.scenarioBuilder()
